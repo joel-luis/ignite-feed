@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 
@@ -95,7 +95,7 @@ export function Post({ author, content, publishedAt }: PostProps) {
             event.target.setCustomValidity('')
             setNewCommentText(event.target.value)
           }}
-          onInvalid={(event) =>
+          onInvalid={(event: ChangeEvent<HTMLTextAreaElement>) =>
             event.target.setCustomValidity('Esse campo é obrigatório')
           }
           required
