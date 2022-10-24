@@ -53,6 +53,8 @@ export function Post({ author, content, publishedAt }: PostProps) {
     setComments(commentsWithoutDeletedOne)
   }
 
+  const isNewCommentEmpty = newCommentText.length === 0
+
   return (
     <article className={styles.post}>
       <header>
@@ -89,10 +91,19 @@ export function Post({ author, content, publishedAt }: PostProps) {
           name="comment"
           placeholder="Deixe um comentário"
           value={newCommentText}
-          onChange={(event) => setNewCommentText(event.target.value)}
+          onChange={(event) => {
+            event.target.setCustomValidity('')
+            setNewCommentText(event.target.value)
+          }}
+          onInvalid={(event) =>
+            event.target.setCustomValidity('Esse campo é obrigatório')
+          }
+          required
         />
         <footer>
-          <button type="submit">Publicar</button>
+          <button type="submit" disabled={isNewCommentEmpty}>
+            Publicar
+          </button>
         </footer>
       </form>
 
